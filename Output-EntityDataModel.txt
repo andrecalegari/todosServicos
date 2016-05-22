@@ -1,0 +1,24 @@
+﻿Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:02.3613316.
+Generating the model took 00:00:02.5797576.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.7193512.
+Generating the model took 00:00:00.7087844.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.7090404.
+Generating the model took 00:00:00.6336046.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.6405858.
+Generating the model took 00:00:00.6390607.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.6066823.
+Generating the model took 00:00:00.6784679.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.6625784.
+Generating the model took 00:00:01.4392301.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.5251475.
+Generating the model took 00:00:00.6806353.
+Generated model file: EF_todosServicos.edmx.
+Loading metadata from the database took 00:00:00.5402913.
+Generating the model took 00:00:00.6303655.

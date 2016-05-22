@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="582a7bf6c22041b29c81c875104e55d9" Name="Diagram1" >
+        <EntityTypeShape EntityType="db_servicosModel.TB_Cidade" Width="1.5" PointX="5.75" PointY="14.25" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_Estado" Width="1.5" PointX="3.5" PointY="14.25" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_LocalizacaoUsuario" Width="1.5" PointX="8" PointY="17.375" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_PerfilUsuario" Width="1.5" PointX="8" PointY="12.25" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_Servico" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_ServicoUsuario" Width="1.5" PointX="8" PointY="9" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_SolicitacaoServico" Width="1.875" PointX="5.25" PointY="2.25" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_SolicitacaoStatus" Width="1.875" PointX="0.5" PointY="2.375" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_Usuario" Width="1.5" PointX="5.75" PointY="9.75" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_Cidade_TB_Estado" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_PerfilUsuario_TB_Cidade" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_PerfilUsuario_TB_Estado" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_LocalizacaoUsuario_TB_Usuario" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_PerfilUsuario_TB_Usuario" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_ServicoUsuario_TB_Servico" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_SolicitacaoServico_TB_Servico" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_ServicoUsuario_TB_Usuario" />
+        <EntityTypeShape EntityType="db_servicosModel.TB_Solicitacao" Width="1.5" PointX="3.125" PointY="17" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_Soilcitacao_TB_Soilcitacao1" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_Soilcitacao_TB_SolicitacaoStatus1" />
+        <AssociationConnector Association="db_servicosModel.FK_TB_SolicitacaoServico_TB_Soilcitacao1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

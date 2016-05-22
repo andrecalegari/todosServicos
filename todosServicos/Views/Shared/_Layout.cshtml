@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Sobre", "Index", "Home")</li>
+                    <li class="active">@Html.ActionLink("Seja um empreiteiro", "cadastrarPrestador", "Home")</li>
+                    <li>@Html.ActionLink("Como funciona?", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMHFWvuM2Uh8ASbUSyGQzg5Pmre93sO9A&callback=initMap"></script>
+    <script>
+    var latitude ="";
+    var longitude = "";
+    var localizacoes = [];
+
+    //Inicia o mapa
+    function initMap() {
+        var idServico = @TempData["idServico"].ToString();
+
+        /*var map = new google.maps.Map(document.getElementById('map'), {
+            //center: { lat: -34.397, lng: 150.644 },
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });*/
+        if (idServico > 0)
+            var infoWindow = new google.maps.InfoWindow({ map: map });
+
+        if (navigator.geolocation && idServico > 0) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                localizacoes[0] = [0, position.coords.latitude, position.coords.longitude, "Você está aqui", 1]
+
+                /*infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                map.setCenter(pos);*/
+
+                latitude = pos.lat;
+                longitude = pos.lng;
+
+                BuscarServicoPorLocalizacao(idServico, latitude, longitude);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    function BuscarServicoPorLocalizacao(idServico, latitude, longitude)
+    {
+        var idUsaurio = 0;
+
+        $.ajax({
+            type: "POST",
+            url: 'http://@(Session["nomeServidor"])/Home/BuscarServicoPorLocalizacao/?idServico=' + idServico + '&latitude='+ latitude + '&longitude=' + longitude,
+            //data: { "data": response.data },
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $.each(result, function (i, data) {
+                    
+                    var imagem = data.imagem;
+
+                    var array = [data.idUsuario, data.latitude, data.longitude, "<input type=\"button\" class=\"solicitarServico\" onclick=\"solicitarServico(" + data.idUsuario + "," + idServico + ")\" name=\"teste\" value=\"Solicitar\">", 0]
+                    localizacoes.push(array);
+
+                    var bound = new google.maps.LatLngBounds();
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        //center: { lat: -34.397, lng: 150.644 },
+                        zoom: 15,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({ map: map });
+                    /*localizacoes = [
+                        data.idUsuario, data.latitude, data.longitude
+                    ]*/
+
+                    var marker, i;
+
+                    var image = {
+                        url: 'http://@(Session["nomeServidor"])/Content/Images/'+imagem,
+                        // This marker is 20 pixels wide by 32 pixels high.
+                        //size: new google.maps.Size(241, 246),
+                        // The origin for this image is (0, 0).
+                        origin: new google.maps.Point(0, 0),
+                        // The anchor for this image is the base of the flagpole at (0, 32).
+                        anchor: new google.maps.Point(0, 32)
+                    };
+
+                    for (i = 0; i < localizacoes.length; i++)
+                    {
+                        //Insere os marcadores no mapa
+                        bound.extend(new google.maps.LatLng(localizacoes[i][1], localizacoes[i][2]));
+
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(localizacoes[i][1], localizacoes[i][2]),
+                            map: map,
+                            icon: image
+                            //animation: google.maps.Animation.BOUNCE,
+                            //title: "collection" + i
+                        });
+
+
+                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                            return function () {
+                                infoWindow.setContent(localizacoes[i][3]);
+                                infoWindow.open(map, marker);
+                            }
+                        })(marker, i));
+                    }
+
+                    map.fitBounds(bound)
+
+                    html = "<div class=\"col-md-4\">";
+                    html += "    <h2>"+data.nome+"</h2>";
+                    html += "    <p><h4>";
+                    html += data.cidade +" - " + data.sigla;
+                    html += "    </h4></p>";
+                    html += "    <p>";
+                    html += data.distancia +" km";
+                    html += "    </p>";
+                    html += "    <p><button type=\"submit\" class=\"btn btn-success btn-lg\" onclick=\"solicitarServico(" + data.idUsuario + "," + idServico + ")\">Solicitar</button></p>";
+                    html += "</div>";
+
+                    $("#lstServico").append(html);
+                });
+
+                /*var marker, i;
+
+                for (i = 0; i < locations.length; i++) {
+                    bound.extend(new google.maps.LatLng(locations[i][1], locations[i][2]));
+
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infoWindow.setContent(locations[i][0]);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
+                // Automatically center the map fitting all markers on the screen
+                map.fitBounds(bound);*/
+            }
+        });
+    }
+
+    function solicitarServico(idUsuarioDestino, idServico) {
+        $.ajax({
+            type: "POST",
+            url: 'http://@(Session["nomeServidor"])/Home/SolicitarServico/?idUsuarioDestino=' + idUsuarioDestino + '&idServico=' + idServico,
+            dataType: "json",
+            success: function (result) {
+                if (result == 0)
+                {
+                    window.location = "Account/Register";
+                }
+            }
+        });
+    }
+
+    $("#servico").change(function () {
+        window.location = 'http://@(Session["nomeServidor"])/Home/Index/?idServico=' + $(this).val();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_servicosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TB_Cidade">
+    <Key>
+      <PropertyRef Name="idCidade" />
+    </Key>
+    <Property Name="idCidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEstado" Type="int" Nullable="false" />
+    <Property Name="cidade" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TB_Estado">
+    <Key>
+      <PropertyRef Name="idEstado" />
+    </Key>
+    <Property Name="idEstado" Type="int" Nullable="false" />
+    <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="sigla" Type="varchar" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TB_LocalizacaoUsuario">
+    <Key>
+      <PropertyRef Name="idLocalizacao" />
+    </Key>
+    <Property Name="idLocalizacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
+    <Property Name="latitude" Type="float" Nullable="false" />
+    <Property Name="longitude" Type="float" Nullable="false" />
+    <Property Name="dataUltimaAtualzacao" Type="smalldatetime" />
+    <Property Name="distancia" Type="float" />
+  </EntityType>
+  <EntityType Name="TB_PerfilUsuario">
+    <Key>
+      <PropertyRef Name="idPerfilUsuario" />
+    </Key>
+    <Property Name="idPerfilUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="cpf" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="endereco" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="complemento" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="bairro" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cep" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="idEstado" Type="int" Nullable="false" />
+    <Property Name="idCidade" Type="int" Nullable="false" />
+    <Property Name="tipoPerfil" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TB_Servico">
+    <Key>
+      <PropertyRef Name="idServico" />
+    </Key>
+    <Property Name="idServico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar" MaxLength="100" />
+    <Property Name="flAtivo" Type="bit" />
+    <Property Name="Imagem" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="TB_ServicoUsuario">
+    <Key>
+      <PropertyRef Name="idServicoUsuario" />
+    </Key>
+    <Property Name="idServicoUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idServico" Type="int" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TB_Solicitacao">
+    <Key>
+      <PropertyRef Name="idSolicitacao" />
+    </Key>
+    <Property Name="idSolicitacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idStatus" Type="int" Nullable="false" />
+    <Property Name="dtCricao" Type="datetime" />
+    <Property Name="idUsuarioOrigem" Type="int" />
+    <Property Name="idUsuarioDestino" Type="int" />
+    <Property Name="dtRetirada" Type="datetime" />
+    <Property Name="dtRecebidoCentral" Type="datetime" />
+    <Property Name="dtValidacao" Type="datetime" />
+    <Property Name="dtEnvioDestino" Type="datetime" />
+    <Property Name="dtEntregue" Type="datetime" />
+    <Property Name="dtDevolucao" Type="datetime" />
+    <Property Name="idDevolucaoMotivo" Type="int" />
+    <Property Name="obsMotivoDevolucao" Type="varchar" MaxLength="2000" />
+    <Property Name="recebidoPor" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TB_SolicitacaoServico">
+    <Key>
+      <PropertyRef Name="idSolicitacaoServico" />
+    </Key>
+    <Property Name="idSolicitacaoServico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdSolicitacao" Type="int" Nullable="false" />
+    <Property Name="idServico" Type="int" Nullable="false" />
+    <Property Name="qtde" Type="int" />
+  </EntityType>
+  <EntityType Name="TB_SolicitacaoStatus">
+    <Key>
+      <PropertyRef Name="idSolicitacaoStatus" />
+    </Key>
+    <Property Name="idSolicitacaoStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar" MaxLength="100" />
+    <Property Name="flAtivo" Type="bit" />
+  </EntityType>
+  <EntityType Name="TB_Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="Senha" Type="varbinary" MaxLength="8000" Nullable="false" />
+    <Property Name="flAtivo" Type="bit" Nullable="false" />
+    <Property Name="dtCriacao" Type="datetime" Nullable="false" />
+    <Property Name="dtAtivacao" Type="datetime" Nullable="false" />
+    <Property Name="dtInativacao" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_TB_Cidade_TB_Estado">
+    <End Role="TB_Estado" Type="Self.TB_Estado" Multiplicity="1" />
+    <End Role="TB_Cidade" Type="Self.TB_Cidade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Estado">
+        <PropertyRef Name="idEstado" />
+      </Principal>
+      <Dependent Role="TB_Cidade">
+        <PropertyRef Name="idEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_LocalizacaoUsuario_TB_Usuario">
+    <End Role="TB_Usuario" Type="Self.TB_Usuario" Multiplicity="1" />
+    <End Role="TB_LocalizacaoUsuario" Type="Self.TB_LocalizacaoUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="TB_LocalizacaoUsuario">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_PerfilUsuario_TB_Cidade">
+    <End Role="TB_Cidade" Type="Self.TB_Cidade" Multiplicity="1" />
+    <End Role="TB_PerfilUsuario" Type="Self.TB_PerfilUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Cidade">
+        <PropertyRef Name="idCidade" />
+      </Principal>
+      <Dependent Role="TB_PerfilUsuario">
+        <PropertyRef Name="idCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_PerfilUsuario_TB_Estado">
+    <End Role="TB_Estado" Type="Self.TB_Estado" Multiplicity="1" />
+    <End Role="TB_PerfilUsuario" Type="Self.TB_PerfilUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Estado">
+        <PropertyRef Name="idEstado" />
+      </Principal>
+      <Dependent Role="TB_PerfilUsuario">
+        <PropertyRef Name="idEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_PerfilUsuario_TB_Usuario">
+    <End Role="TB_Usuario" Type="Self.TB_Usuario" Multiplicity="1" />
+    <End Role="TB_PerfilUsuario" Type="Self.TB_PerfilUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="TB_PerfilUsuario">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_ServicoUsuario_TB_Servico">
+    <End Role="TB_Servico" Type="Self.TB_Servico" Multiplicity="1" />
+    <End Role="TB_ServicoUsuario" Type="Self.TB_ServicoUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Servico">
+        <PropertyRef Name="idServico" />
+      </Principal>
+      <Dependent Role="TB_ServicoUsuario">
+        <PropertyRef Name="idServico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_ServicoUsuario_TB_Usuario">
+    <End Role="TB_Usuario" Type="Self.TB_Usuario" Multiplicity="1" />
+    <End Role="TB_ServicoUsuario" Type="Self.TB_ServicoUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="TB_ServicoUsuario">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_Soilcitacao_TB_Soilcitacao">
+    <End Role="TB_Solicitacao" Type="Self.TB_Solicitacao" Multiplicity="1" />
+    <End Role="TB_Solicitacao1" Type="Self.TB_Solicitacao" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Solicitacao">
+        <PropertyRef Name="idSolicitacao" />
+      </Principal>
+      <Dependent Role="TB_Solicitacao1">
+        <PropertyRef Name="idSolicitacao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_Soilcitacao_TB_SolicitacaoStatus">
+    <End Role="TB_SolicitacaoStatus" Type="Self.TB_SolicitacaoStatus" Multiplicity="1" />
+    <End Role="TB_Solicitacao" Type="Self.TB_Solicitacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_SolicitacaoStatus">
+        <PropertyRef Name="idSolicitacaoStatus" />
+      </Principal>
+      <Dependent Role="TB_Solicitacao">
+        <PropertyRef Name="idStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_SolicitacaoServico_TB_Servico">
+    <End Role="TB_Servico" Type="Self.TB_Servico" Multiplicity="1" />
+    <End Role="TB_SolicitacaoServico" Type="Self.TB_SolicitacaoServico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Servico">
+        <PropertyRef Name="idServico" />
+      </Principal>
+      <Dependent Role="TB_SolicitacaoServico">
+        <PropertyRef Name="idServico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TB_SolicitacaoServico_TB_Soilcitacao">
+    <End Role="TB_Solicitacao" Type="Self.TB_Solicitacao" Multiplicity="1" />
+    <End Role="TB_SolicitacaoServico" Type="Self.TB_SolicitacaoServico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_Solicitacao">
+        <PropertyRef Name="idSolicitacao" />
+      </Principal>
+      <Dependent Role="TB_SolicitacaoServico">
+        <PropertyRef Name="IdSolicitacao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="STP_INS_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="senha" Type="varchar" Mode="In" />
+    <Parameter Name="flAtivo" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="STP_LST_BuscarServicoPorLocalizacao" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="latitude" Type="float" Mode="In" />
+    <Parameter Name="longitude" Type="float" Mode="In" />
+    <Parameter Name="idServico" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="db_servicosModelStoreContainer">
+    <EntitySet Name="TB_Cidade" EntityType="Self.TB_Cidade" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_Estado" EntityType="Self.TB_Estado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_LocalizacaoUsuario" EntityType="Self.TB_LocalizacaoUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_PerfilUsuario" EntityType="Self.TB_PerfilUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_Servico" EntityType="Self.TB_Servico" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_ServicoUsuario" EntityType="Self.TB_ServicoUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_Solicitacao" EntityType="Self.TB_Solicitacao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_SolicitacaoServico" EntityType="Self.TB_SolicitacaoServico" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_SolicitacaoStatus" EntityType="Self.TB_SolicitacaoStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TB_Usuario" EntityType="Self.TB_Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TB_Cidade_TB_Estado" Association="Self.FK_TB_Cidade_TB_Estado">
+      <End Role="TB_Estado" EntitySet="TB_Estado" />
+      <End Role="TB_Cidade" EntitySet="TB_Cidade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_LocalizacaoUsuario_TB_Usuario" Association="Self.FK_TB_LocalizacaoUsuario_TB_Usuario">
+      <End Role="TB_Usuario" EntitySet="TB_Usuario" />
+      <End Role="TB_LocalizacaoUsuario" EntitySet="TB_LocalizacaoUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_PerfilUsuario_TB_Cidade" Association="Self.FK_TB_PerfilUsuario_TB_Cidade">
+      <End Role="TB_Cidade" EntitySet="TB_Cidade" />
+      <End Role="TB_PerfilUsuario" EntitySet="TB_PerfilUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_PerfilUsuario_TB_Estado" Association="Self.FK_TB_PerfilUsuario_TB_Estado">
+      <End Role="TB_Estado" EntitySet="TB_Estado" />
+      <End Role="TB_PerfilUsuario" EntitySet="TB_PerfilUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_PerfilUsuario_TB_Usuario" Association="Self.FK_TB_PerfilUsuario_TB_Usuario">
+      <End Role="TB_Usuario" EntitySet="TB_Usuario" />
+      <End Role="TB_PerfilUsuario" EntitySet="TB_PerfilUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_ServicoUsuario_TB_Servico" Association="Self.FK_TB_ServicoUsuario_TB_Servico">
+      <End Role="TB_Servico" EntitySet="TB_Servico" />
+      <End Role="TB_ServicoUsuario" EntitySet="TB_ServicoUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_ServicoUsuario_TB_Usuario" Association="Self.FK_TB_ServicoUsuario_TB_Usuario">
+      <End Role="TB_Usuario" EntitySet="TB_Usuario" />
+      <End Role="TB_ServicoUsuario" EntitySet="TB_ServicoUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_Soilcitacao_TB_Soilcitacao" Association="Self.FK_TB_Soilcitacao_TB_Soilcitacao">
+      <End Role="TB_Solicitacao" EntitySet="TB_Solicitacao" />
+      <End Role="TB_Solicitacao1" EntitySet="TB_Solicitacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_Soilcitacao_TB_SolicitacaoStatus" Association="Self.FK_TB_Soilcitacao_TB_SolicitacaoStatus">
+      <End Role="TB_SolicitacaoStatus" EntitySet="TB_SolicitacaoStatus" />
+      <End Role="TB_Solicitacao" EntitySet="TB_Solicitacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_SolicitacaoServico_TB_Servico" Association="Self.FK_TB_SolicitacaoServico_TB_Servico">
+      <End Role="TB_Servico" EntitySet="TB_Servico" />
+      <End Role="TB_SolicitacaoServico" EntitySet="TB_SolicitacaoServico" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TB_SolicitacaoServico_TB_Soilcitacao" Association="Self.FK_TB_SolicitacaoServico_TB_Soilcitacao">
+      <End Role="TB_Solicitacao" EntitySet="TB_Solicitacao" />
+      <End Role="TB_SolicitacaoServico" EntitySet="TB_SolicitacaoServico" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
