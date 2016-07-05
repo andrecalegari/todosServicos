@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Todos Serviços</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -17,7 +17,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="~/Content/Images/logotipo.jpg" style="width: 60px;" />
+                @Html.ActionLink("Todos os serviços", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -87,7 +88,7 @@
     function BuscarServicoPorLocalizacao(idServico, latitude, longitude)
     {
         var idUsaurio = 0;
-
+        
         $.ajax({
             type: "POST",
             url: 'http://@(Session["nomeServidor"])/Home/BuscarServicoPorLocalizacao/?idServico=' + idServico + '&latitude='+ latitude + '&longitude=' + longitude,
@@ -151,17 +152,35 @@
 
                     map.fitBounds(bound)
 
-                    html = "<div class=\"col-md-4\">";
-                    html += "    <h2>"+data.nome+"</h2>";
-                    html += "    <p><h4>";
-                    html += data.cidade +" - " + data.sigla;
-                    html += "    </h4></p>";
-                    html += "    <p>";
-                    html += data.distancia +" km";
-                    html += "    </p>";
-                    html += "    <p><button type=\"submit\" class=\"btn btn-success btn-lg\" onclick=\"solicitarServico(" + data.idUsuario + "," + idServico + ")\">Solicitar</button></p>";
+                    //html = "<div class=\"col-md-4\">";
+                    //html += "    <h2>"+data.nome+"</h2>";
+                    //html += "    <p><h4>";
+                    //html += data.cidade +" - " + data.sigla;
+                    //html += "    </h4></p>";
+                    //html += "    <p>";
+                    //html += data.distancia +" km";
+                    //html += "    </p>";
+                    //html += "    <p><button type=\"submit\" class=\"btn btn-success btn-lg\" onclick=\"solicitarServico(" + data.idUsuario + "," + idServico + ")\">Solicitar</button></p>";
+                    //html += "</div>";
+
+
+                    html = "<div class=\"col-md-3\">";
+                    html += "       <div class=\"price-value\">";
+                    html += "    	    <h3>"+data.nome+"</h3>";
+                    html += "    	    <p class=\"price-label-1\"><span></span></p>";
+                    html += "    		<a class=\"month\" href=\"#\"><span>"+data.cidade +" - " + data.sigla+"</span></a>";
+                    html += "    		<a class=\"month\" href=\"#\">"+data.distancia +" km</a>";
+                    //html += "    		<div class=\"box\">";
+                    //html += "    		    <div class=\"ribbon\"><span>Popular</span></div>";
+                    //html += "       	</div>";
+                    html += "       </div>";
+                    html += "    	<div class=\"price-bg\">";						
+                    html += "    		<p class=\"bottom\"><a href=\"#\" onclick=\"solicitarServico(" + data.idUsuario + "," + idServico + ")\">SOLICITAR</a></p>";
+                    html += "       </div>";
                     html += "</div>";
 
+                    $('.jumbotron').html('<div id=\"tabs\" class=\"tabs\"><nav><ul><li class=\"tab-current\"><a href=\"#\"><i class="glyphicon glyphicon-list" aria-hidden="true"></i></a></li><li><a href=\"#\"><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i></a></li></ul></nav></div>');
+                    $('#servico').html('');
                     $("#lstServico").append(html);
                 });
 
@@ -185,7 +204,23 @@
                 // Automatically center the map fitting all markers on the screen
                 map.fitBounds(bound);*/
             }
+        }).done(function () {
+            
+            $('.glyphicon-list').click(function(){
+                $("#lstServico").show();
+                $("#map").hide();
+            });
+
+            $('.glyphicon-map-marker').click(function(){
+                $("#map").show();
+                $("#lstServico").hide();
+            });
         });
+
+        //$("#lstServico").show();
+        //$("#map").hide();
+
+            
     }
 
     function solicitarServico(idUsuarioDestino, idServico) {
@@ -198,13 +233,13 @@
                 {
                     window.location = "Account/Register";
                 }
+                else
+                {
+                    
+                }
             }
         });
     }
-
-    $("#servico").change(function () {
-        window.location = 'http://@(Session["nomeServidor"])/Home/Index/?idServico=' + $(this).val();
-    });
     </script>
 </body>
 </html>
