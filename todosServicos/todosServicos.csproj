@@ -232,6 +232,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\clndr.css" />
+    <Content Include="Content\component.css" />
+    <Content Include="Content\style.css" />
     <Content Include="EF_todosServicos.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EF_todosServicos.edmx</DependentUpon>
@@ -256,6 +259,9 @@
       <DependentUpon>EF_todosServicos.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cbpFWTabs.js" />
+    <Content Include="Scripts\clndr.js" />
+    <Content Include="Scripts\easyResponsiveTabs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -264,8 +270,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-2.2.1.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
