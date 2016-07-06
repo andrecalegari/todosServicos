@@ -47,10 +47,13 @@
     var longitude = "";
     var localizacoes = [];
 
+    $(document).ready(function(){
+        $("#map").hide();
+    });
+
     //Inicia o mapa
     function initMap() {
         var idServico = @TempData["idServico"].ToString();
-
         /*var map = new google.maps.Map(document.getElementById('map'), {
             //center: { lat: -34.397, lng: 150.644 },
             zoom: 15,
@@ -58,7 +61,7 @@
         });*/
         if (idServico > 0)
             var infoWindow = new google.maps.InfoWindow({ map: map });
-
+        
         if (navigator.geolocation && idServico > 0) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
@@ -88,7 +91,6 @@
     function BuscarServicoPorLocalizacao(idServico, latitude, longitude)
     {
         var idUsaurio = 0;
-        
         $.ajax({
             type: "POST",
             url: 'http://@(Session["nomeServidor"])/Home/BuscarServicoPorLocalizacao/?idServico=' + idServico + '&latitude='+ latitude + '&longitude=' + longitude,
@@ -97,7 +99,6 @@
             dataType: "json",
             success: function (result) {
                 $.each(result, function (i, data) {
-                    
                     var imagem = data.imagem;
 
                     var array = [data.idUsuario, data.latitude, data.longitude, "<input type=\"button\" class=\"solicitarServico\" onclick=\"solicitarServico(" + data.idUsuario + "," + idServico + ")\" name=\"teste\" value=\"Solicitar\">", 0]
@@ -205,7 +206,6 @@
                 map.fitBounds(bound);*/
             }
         }).done(function () {
-            
             $('.glyphicon-list').click(function(){
                 $("#lstServico").show();
                 $("#map").hide();
@@ -213,14 +213,10 @@
 
             $('.glyphicon-map-marker').click(function(){
                 $("#map").show();
+                initMap()
                 $("#lstServico").hide();
             });
-        });
-
-        //$("#lstServico").show();
-        //$("#map").hide();
-
-            
+        });            
     }
 
     function solicitarServico(idUsuarioDestino, idServico) {
