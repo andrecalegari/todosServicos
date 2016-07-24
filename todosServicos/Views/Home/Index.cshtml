@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron"><h2>Qual serviço você precisa?</h2></div>
+<div class="jumbotron"><h2><b>Qual serviço você precisa?</b></h2></div>
 <!--<div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -39,7 +39,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12 text-center" id="teta">
+    <div class="col-md-12 text-center">
         <div id="map" class="col-md-12" style="height:350px; text-align:center"></div>
     </div>
 </div>
@@ -56,6 +56,8 @@
                 url: 'http://@(Session["nomeServidor"])/Home/ListarServico/?idServico=' + idServico ,
                 dataType: "json",
                 success: function (result) {
+                    html = "<div class=\"col-xs-12 text-center skill-one\" style=\"height:240px\">";
+                    
                     $.each(result, function (i, data) {
                         //html = "<div class=\"col-xs-6 col-lg-4 text-center skill-one\" style=\"height:240px\">";
                         //html += "   <div class=\"twitter\">";
@@ -83,25 +85,39 @@
                         //html += '<div class="clearfix"></div>';
                         //html += '</div>';
 
-                        html =  '<div class="col-xs-4 col-lg-4 first-one servicoElem" style=\"cursor:pointer;\" data-idservico="'+ data.idServico +'">';
-                        html += '   <div class="first-one-inner lost" style="width:350px; height:200px;">             ';
-                        html += '       <div class="here">                         ';
-                        //html += "           <input type=\"checkbox\" class=\"hidden\" name=\"idServico\" id=\"" + data.idServico + "\" value=\"" + data.idServico + "\" >";
-                        html += "           <img class=\"idServico\" style=\"width:30%; height:60%;\" idServico=\""+data.idServico+"\" src=\"http://@(Session["nomeServidor"])/Content/Images/grande/" + data.Imagem + "\" alt=\""+data.descricao+"\">";
-                        html += '		    <h4>'+data.descricao+'</h4>           ';
-                        html += '	    </div>                                      ';
-                        html += '   </div>                                        ';
-                        html += ' </div>                                        ';
+                        //html =  '<div class="col-xs-4 col-lg-4 first-one servicoElem" style=\"cursor:pointer;\" data-idservico="'+ data.idServico +'">';
+                        //html += '   <div class="first-one-inner lost" style="width:350px; height:200px;">             ';
+                        //html += '       <div class="here">                         ';
+                        //html += "           <img class=\"idServico\" style=\"width:30%; height:60%;\" idServico=\""+data.idServico+"\" src=\"http://@(Session["nomeServidor"])/Content/Images/grande/" + data.Imagem + "\" alt=\""+data.descricao+"\">";
+                        //html += '		    <h4>'+data.descricao+'</h4>           ';
+                        //html += '	    </div>                                      ';
+                        //html += '   </div>                                        ';
+                        //html += ' </div>                                        ';
+                        //alert(i);
+                        //if(i%4 == 0 && i > 0)
+                        //    html += '<div class="row">';
+                        
+                        html += '<div class=\"social servicoElem\" style=\"cursor:pointer;\" data-idservico="'+ data.idServico +'">';
+                        html += '<div class=\"col-md-3 social-left\" style=\"width:124px; height:91px;\">';
+                        html += '	<div class=\"img\">';
+                        html += "           <img class=\"idServico\" idServico=\""+data.idServico+"\" src=\"http://@(Session["nomeServidor"])/Content/Images/" + data.Imagem + "\" alt=\""+data.descricao+"\">";
+                        html += '   </div><span class=\"tw\">'+data.descricao+'</span>';
+                        html += '</div>';
+                        html += '</div>';
+                        if((i+1)%4 == 0 )
+                            html += '<div class="row"></div>';   
 
-
-                        $('#servico').append(html);
                     });
+                    
+                    html += '</div>';
+
+                    $('#servico').append(html);
                 }
             }).done(function () {
                 $('.idServico').click(function () {
                     var idServico = $(this).attr("idServico");
                     var elem = $(this).closest("div");
-                    
+
                     if ($('#' + idServico).attr("checked") == "checked") {
                         elem.fadeTo(950, 0.5);
                         $('#' + idServico).attr("checked", false);
