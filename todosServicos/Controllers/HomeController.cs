@@ -168,17 +168,22 @@ namespace todosServicos.Controllers
 
             using (db_servicosEntities context = new db_servicosEntities())
             {
-                var query = context.TB_Servico.Where(x => x.flAtivo == true);
+                try { 
+                    var query = context.TB_Servico.Where(x => x.flAtivo == true);
 
-                foreach (var item in query)
-                {
-                    TB_Servico servico = new TB_Servico();
+                    foreach (var item in query)
+                    {
+                        TB_Servico servico = new TB_Servico();
 
-                    servico.idServico = item.idServico;
-                    servico.descricao = item.descricao;
-                    servico.Imagem = item.Imagem;
+                        servico.idServico = item.idServico;
+                        servico.descricao = item.descricao;
+                        servico.Imagem = item.Imagem;
 
-                    lstServico.Add(servico);
+                        lstServico.Add(servico);
+                    }
+                }
+                catch (Exception e){
+                    Exception erro = e.InnerException;
                 }
             }
 

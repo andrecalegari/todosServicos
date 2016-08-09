@@ -4501,12 +4501,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #35aadc;
+  border-color: #4fc4f6;
+
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4520,7 +4521,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -4533,7 +4534,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #080808;
+  background-color: #4fc4f6;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -4749,7 +4750,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
   text-align: center;
   list-style: none;
 }
-
+.teste {
+    background-image: url('Images/Empreiteira_em_Florianopolis.jpg');
+    overflow:scroll;
+}
 .pager:before,
 .pager:after {
   display: table;
@@ -4929,12 +4933,11 @@ a.list-group-item.active > .badge,
 
 .jumbotron {
   padding: 30px;
-  margin-bottom: 30px;
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
-  color: inherit;
-  background-color: #eeeeee;
+  color: #fff;
+  text-align:center
 }
 
 .jumbotron h1 {
@@ -4953,7 +4956,7 @@ a.list-group-item.active > .badge,
 @media screen and (min-width: 768px) {
   .jumbotron {
     padding-top: 48px;
-    padding-bottom: 48px;
+    padding-bottom: 28px;
   }
   .container .jumbotron {
     padding-right: 60px;

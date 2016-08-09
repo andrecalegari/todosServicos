@@ -245,3 +245,6 @@ ModelManifest.xml
 .fake/
 todosServicos/bin/todosServicos.dll
 todosServicos/bin/todosServicos.dll
+todosServicos/bin/todosServicos.dll
+*.pdb
+.vs/todosServicos/v14/.suo

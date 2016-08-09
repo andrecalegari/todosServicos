@@ -9,24 +9,26 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img src="~/Content/Images/logotipo.jpg" style="width: 60px;" />
-                @Html.ActionLink("Todos os serviços", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Sobre", "Index", "Home")</li>
-                    <li class="active">@Html.ActionLink("Seja um empreiteiro", "cadastrarPrestador", "Home")</li>
-                    <li>@Html.ActionLink("Como funciona?", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+    <div class="teste">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img src="~/Content/Images/logotipo.jpg" style="width: 60px;" />
+                    @Html.ActionLink("Todos os serviços", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Sobre", "Index", "Home")</li>
+                        <li class="active">@Html.ActionLink("Seja um empreiteiro", "cadastrarPrestador", "Home")</li>
+                        <li>@Html.ActionLink("Como funciona?", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
     </div>
